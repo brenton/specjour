@@ -11,12 +11,12 @@ module Specjour::Cucumber
 
     def after_features(features)
       print_summary
-      step_mother.scenarios.clear
-      step_mother.steps.clear
+      @step_mother.scenarios.clear
+      @step_mother.steps.clear
     end
 
     def prepare_failures
-      step_mother.scenarios(:failed).select do |s|
+      @step_mother.scenarios(:failed).select do |s|
         s.is_a?(Cucumber::Ast::Scenario) || s.is_a?(Cucumber::Ast::OutlineTable::ExampleRow)
       end.map do |failure|
         if failure.is_a?(Cucumber::Ast::Scenario)
@@ -49,7 +49,7 @@ module Specjour::Cucumber
     end
 
     def prepare_steps(type)
-      prepare_elements(step_mother.steps(type), type, 'steps')
+      prepare_elements(@step_mother.steps(type), type, 'steps')
     end
 
     def print_exception(e, status, indent)
