@@ -89,7 +89,10 @@ module Specjour
     def gather_managers
       puts "Looking for listeners..."
       gather_remote_managers
-      fork_local_manager if local_manager_needed?
+      #HACK: For some reason on my Linux system the local manager is unable to
+      #find itself.  It tries to connect to 0.0.0.0:$some_port when it should
+      #probably use the loopback.  I'll have to look into this later.
+      #fork_local_manager if local_manager_needed?
       abort "No listeners found" if managers.size.zero?
     end
 
